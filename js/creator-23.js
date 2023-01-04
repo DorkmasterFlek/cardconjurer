@@ -2734,10 +2734,11 @@ function makeSeventhEditionFrameByLetter(letter, mask = false, maskToRightHalf =
 	return frame;
 }
 async function addFrame(additionalMasks = [], loadingFrame = false) {
-	var frameToAdd = JSON.parse(JSON.stringify(availableFrames[selectedFrameIndex]));
+	var frameToAdd;
 	var maskThumbnail = true;
 	if (!loadingFrame) {
 		// The frame is being added manually by the user, so we must process which mask(s) they have selected
+		frameToAdd = JSON.parse(JSON.stringify(availableFrames[selectedFrameIndex]));
 		var noDefaultMask = 0;
 		if (frameToAdd.noDefaultMask) {noDefaultMask = 1;}
 		if (frameToAdd.masks && selectedMaskIndex + noDefaultMask > 0) {
