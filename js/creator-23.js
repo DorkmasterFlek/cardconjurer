@@ -3788,7 +3788,25 @@ function widthToAngle(width, radius) {
 	return width / radius;
 }
 function curlyQuotes(input) {
-	return input.replace(/ '/g, ' ‘').replace(/^'/, '‘').replace(/'/g, '’').replace(/ "/g, ' “').replace(/" /g, '” ').replace(/\."/, '.”').replace(/"$/, '”').replace(/"\)/g, '”)').replace(/"/g, '“');
+	let result = [];
+	for (let line of input.split(/\n/)) {
+		result.push(line
+			.replace(/^'/, '‘')
+			.replace(/\.'/, '.’')
+			.replace(/'$/, '’')
+			.replace(/(\s+)'/g, '$1‘')
+			.replace(/'(\s+)/g, '’$1')
+			.replace(/'/g, '’')
+			.replace(/^"/, '“')
+			.replace(/\."/, '.”')
+			.replace(/"$/, '”')
+			.replace(/(\s+)"/g, '$1“')
+			.replace(/"(\s+)/g, '”$1')
+			.replace(/"\)/g, '”)')
+			.replace(/"/g, '“')
+		);
+	}
+	return result.join("\n");
 }
 function pinlineColors(color) {
 	return color.replace('white', '#fcfeff').replace('blue', '#0075be').replace('black', '#272624').replace('red', '#ef3827').replace('green', '#007b43')
