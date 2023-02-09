@@ -227,6 +227,12 @@ function getInlineCardName() {
 	}
 	return imageName.replace(/\{[^}]+\}/g, '');
 }
+
+function getShortName() {
+	// Get short name (everything before first comma) for names with epithets, or just full name if none.
+	return getInlineCardName().split(',', 1)[0];
+}
+
 //UI
 function toggleCreatorTabs(event, target) {
 	Array.from(document.querySelector('#creator-menu-sections').children).forEach(element => element.classList.add('hidden'));
@@ -3153,6 +3159,9 @@ function writeText(textObject, targetContext) {
 	}
 	if (rawText.toLowerCase().includes('{cardname}') || rawText.toLowerCase().includes('~')) {
 		rawText = rawText.replace(/{cardname}|~/ig, getInlineCardName());
+	}
+	if (rawText.toLowerCase().includes('{shortname}')) {
+		rawText = rawText.replace(/{shortname}/ig, getShortName());
 	}
 	if (document.querySelector('#info-artist').value == '') {
 		rawText = rawText.replace('\uFFEE{elemidinfo-artist}', '');
